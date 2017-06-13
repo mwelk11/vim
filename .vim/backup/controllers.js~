@@ -1,0 +1,24 @@
+'use strict';
+
+/**
+ * Controllers of the weatherApp
+ */
+angular.module('weatherApp')
+  .controller('MainCtrl', function ($scope, $location, weatherService) {
+      
+      $scope.formData = {};
+
+      $scope.search = function(zip) {
+         weatherService.getWeather(zip) 
+             .then(function(data) {
+                 console.log('SUCCESS in controller');
+                 $scope.results = data;
+                 $location.path('weather.html');
+             }, function(err) {
+                 console.log("ERROR returned from weatherService");
+             });
+      }
+  })
+  .controller('WeatherCtrl', function($scope) {
+      $scope.message = 'This is the WEATHER message!';
+  });
